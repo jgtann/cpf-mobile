@@ -4,7 +4,10 @@
     "slug": "cpf-mobile",
     "platforms": [
       "ios",
-      "android",
+      "android" {
+        "package": "com.cpf.mobile",
+        "versionCode": 1
+      },
       "web"
     ],
     "description": "A mobile application for CPF management.",
