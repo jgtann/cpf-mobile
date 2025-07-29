@@ -3,15 +3,18 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { CPFYearProjection } from '../utils/cpfCalculator';
 
 export default function ResultsScreen({ route }: any) {
-  const results: CPFYearProjection[] = route.params.results;
-
-  const before55 = results.filter(item => item.age < 55);
-  const from55Onward = results.filter(item => item.age >= 55);
+  const [results, setResults] = useState<CPFYearProjection[]>(route.params.results); // 🔄 state
 
   const [showDetailsBefore55, setShowDetailsBefore55] = useState(false);
   const [showDetailsFrom55, setShowDetailsFrom55] = useState(false);
 
   const renderCurrency = (value: number) => `$${value.toFixed(2)}`;
+
+  const handleClearResults = () => {
+    setResults([]); // 🧹 clear all results
+    setShowDetailsBefore55(false);
+    setShowDetailsFrom55(false);
+  };
 
   const renderTable = (
     data: CPFYearProjection[],
@@ -66,17 +69,32 @@ export default function ResultsScreen({ route }: any) {
     </>
   );
 
+  const before55 = results.filter(item => item.age < 55);
+  const from55Onward = results.filter(item => item.age >= 55);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>CPF Projection Tables</Text>
-      {before55.length > 0 &&
-        renderTable(before55, 'Before Age 55', false, showDetailsBefore55, () =>
-          setShowDetailsBefore55(!showDetailsBefore55)
-        )}
-      {from55Onward.length > 0 &&
-        renderTable(from55Onward, 'From Age 55 Onward', true, showDetailsFrom55, () =>
-          setShowDetailsFrom55(!showDetailsFrom55)
-        )}
+
+      {results.length > 0 ? (
+        <>
+          {before55.length > 0 &&
+            renderTable(before55, 'Before Age 55', false, showDetailsBefore55, () =>
+              setShowDetailsBefore55(!showDetailsBefore55)
+            )}
+          {from55Onward.length > 0 &&
+            renderTable(from55Onward, 'From Age 55 Onward', true, showDetailsFrom55, () =>
+              setShowDetailsFrom55(!showDetailsFrom55)
+            )}
+
+          {/* 🆕 Clear Button */}
+          <TouchableOpacity style={styles.clearButton} onPress={handleClearResults}>
+            <Text style={styles.clearButtonText}>Clear Contents</Text>
+          </TouchableOpacity>
+        </>
+      ) : (
+        <Text style={styles.noDataText}>No results to display.</Text>
+      )}
     </ScrollView>
   );
 }
@@ -136,5 +154,23 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: '600',
+  },
+  clearButton: {
+    marginTop: 24,
+    backgroundColor: '#cc3333',
+    padding: 12,
+    borderRadius: 8,
+    alignSelf: 'center',
+  },
+  clearButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  noDataText: {
+    marginTop: 24,
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#999',
   },
 });
