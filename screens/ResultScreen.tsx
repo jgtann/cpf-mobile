@@ -11,7 +11,8 @@ export default function ResultsScreen({ route }: any) {
   const [showDetailsBefore55, setShowDetailsBefore55] = useState(false);
   const [showDetailsFrom55, setShowDetailsFrom55] = useState(false);
 
-  const renderCurrency = (value: number) => `$${value.toFixed(2)}`;
+  const renderCurrency = (value: number) => 
+     `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   const renderTable = (
     data: CPFYearProjection[],
