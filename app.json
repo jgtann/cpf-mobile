@@ -1,7 +1,13 @@
 {
   "expo": {
-    "name": "cpf-mobile",
+    "name": "CPF Mobile",
     "slug": "cpf-mobile",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "description": "A mobile application for CPF management.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
