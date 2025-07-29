@@ -1,12 +1,14 @@
 // App.tsx
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { Platform } from 'react-native';
 import InputScreen from './screens/InputScreen';
 import ResultsScreen from './screens/ResultScreen';
 
 const Stack = Platform.OS === 'web'
-  ? require('@react-navigation/stack').createStackNavigator()
-  : require('@react-navigation/native-stack').createNativeStackNavigator();
+  ? createStackNavigator()
+  : createNativeStackNavigator();
 
 export default function App() {
   return (
