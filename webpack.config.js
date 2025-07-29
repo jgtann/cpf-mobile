@@ -1,6 +1,6 @@
-// webpack.config.js
-const { withExpoWebpack } = require('@expo/webpack-config');
+const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 
 module.exports = async function (env, argv) {
-  return await withExpoWebpack(env, argv);
+  const config = await createExpoWebpackConfigAsync(env, argv);
+  return config;
 };
