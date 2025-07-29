@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons'; // or use MaterialIcons
 import { CPFYearProjection } from '../utils/cpfCalculator';
+
 
 export default function ResultsScreen({ route }: any) {
   const results: CPFYearProjection[] = route.params.results;
@@ -14,58 +16,59 @@ export default function ResultsScreen({ route }: any) {
   const renderCurrency = (value: number) => 
      `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-  const renderTable = (
-    data: CPFYearProjection[],
-    label: string,
-    useRA: boolean,
-    showDetails: boolean,
-    toggleDetails: () => void
-  ) => (
-    <>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>{label}</Text>
-        <TouchableOpacity onPress={toggleDetails}>
-          <Text style={styles.toggleButton}>
-            {showDetails ? 'Collapse' : 'Expand'}
-          </Text>
-        </TouchableOpacity>
-      </View>
+const renderTable = (
+  data: CPFYearProjection[],
+  label: string,
+  useRA: boolean,
+  showDetails: boolean,
+  toggleDetails: () => void
+) => (
+  <>
+    <TouchableOpacity style={styles.sectionHeader} onPress={toggleDetails}>
+      <Text style={styles.sectionTitle}>{label}</Text>
+      <Icon
+        name={showDetails ? 'chevron-up' : 'chevron-down'}
+        size={22}
+        color="#007777"
+      />
+    </TouchableOpacity>
 
-      <View style={styles.tableHeader}>
-        <Text style={styles.headerCell}>Year</Text>
-        <Text style={styles.headerCell}>Age</Text>
+    <View style={styles.tableHeader}>
+      <Text style={styles.headerCell}>Year</Text>
+      <Text style={styles.headerCell}>Age</Text>
+      {showDetails ? (
+        <>
+          <Text style={styles.headerCell}>OA</Text>
+          <Text style={styles.headerCell}>{useRA ? 'RA' : 'SA'}</Text>
+          <Text style={styles.headerCell}>MA</Text>
+        </>
+      ) : (
+        <Text style={styles.headerCell}>Total</Text>
+      )}
+    </View>
+
+    {data.map((item) => (
+      <View key={item.year} style={styles.tableRow}>
+        <Text style={styles.cell}>{item.year}</Text>
+        <Text style={styles.cell}>{item.age}</Text>
         {showDetails ? (
           <>
-            <Text style={styles.headerCell}>OA</Text>
-            <Text style={styles.headerCell}>{useRA ? 'RA' : 'SA'}</Text>
-            <Text style={styles.headerCell}>MA</Text>
+            <Text style={styles.cell}>{renderCurrency(item.oa)}</Text>
+            <Text style={styles.cell}>
+              {renderCurrency(useRA ? item.ra : item.sa)}
+            </Text>
+            <Text style={styles.cell}>{renderCurrency(item.ma)}</Text>
           </>
         ) : (
-          <Text style={styles.headerCell}>Total</Text>
+          <Text style={[styles.cell, styles.bold]}>
+            {renderCurrency(item.total)}
+          </Text>
         )}
       </View>
+    ))}
+  </>
+);
 
-      {data.map((item) => (
-        <View key={item.year} style={styles.tableRow}>
-          <Text style={styles.cell}>{item.year}</Text>
-          <Text style={styles.cell}>{item.age}</Text>
-          {showDetails ? (
-            <>
-              <Text style={styles.cell}>{renderCurrency(item.oa)}</Text>
-              <Text style={styles.cell}>
-                {renderCurrency(useRA ? item.ra : item.sa)}
-              </Text>
-              <Text style={styles.cell}>{renderCurrency(item.ma)}</Text>
-            </>
-          ) : (
-            <Text style={[styles.cell, styles.bold]}>
-              {renderCurrency(item.total)}
-            </Text>
-          )}
-        </View>
-      ))}
-    </>
-  );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
