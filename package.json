@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "homepage": "https://jtann.github.io/cpf-mobile",
   "scripts": {
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d web-build",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
