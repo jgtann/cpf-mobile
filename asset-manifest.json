@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/cpf-mobile/static/js/main.e16d18ba.js",
+    "static/js/574.7d914c87.js": "/cpf-mobile/static/js/574.7d914c87.js",
+    "favicon.ico": "/cpf-mobile/favicon.ico",
+    "index.html": "/cpf-mobile/index.html",
+    "favicon-32.png": "/cpf-mobile/favicon-32.png",
+    "favicon-16.png": "/cpf-mobile/favicon-16.png",
+    "manifest.json": "/cpf-mobile/manifest.json",
+    "serve.json": "/cpf-mobile/serve.json",
+    "main.e16d18ba.js.map": "/cpf-mobile/static/js/main.e16d18ba.js.map",
+    "574.7d914c87.js.map": "/cpf-mobile/static/js/574.7d914c87.js.map"
+  },
+  "entrypoints": [
+    "static/js/574.7d914c87.js",
+    "static/js/main.e16d18ba.js"
+  ]
+}

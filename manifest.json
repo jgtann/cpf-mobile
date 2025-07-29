@@ -1,0 +1,9 @@
+{
+  "description": "A mobile application for CPF management.",
+  "display": "standalone",
+  "lang": "en",
+  "name": "CPF Mobile",
+  "short_name": "CPF Mobile",
+  "start_url": "/?utm_source=web_app_manifest",
+  "orientation": "portrait"
+}
